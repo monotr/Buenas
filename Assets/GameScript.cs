@@ -8,7 +8,7 @@ public class GameScript : MonoBehaviour {
 	public GameObject carta;
 	private SpriteRenderer cambioCarta;
 	private List<int> numeros;
-	private	 List<int> numerosSalidos;
+	public	 List<int> numerosSalidos;
 	private bool yasta = false;
 	public GameObject panelSalidos;
 	public RectTransform cartaSalida;
@@ -37,8 +37,11 @@ public class GameScript : MonoBehaviour {
 						GameObject salio = Instantiate(cartaSalida, Vector3.zero, Quaternion.identity) as GameObject;
 						salio.GetComponent<Image>().sprite = cartas[rando];
 						salio.transform.SetParent (panelSalidos.transform);
-						salio.GetComponent<RectTransform>().anchorMax = new Vector2(-58,0);
-						salio.GetComponent<RectTransform>().anchorMin = new Vector2(0,0);
+                        salio.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+                        salio.transform.localPosition = new Vector2(0, 655 - 120 * numerosSalidos.Count);
+
+                        if (numerosSalidos.Count > 10)
+                            //panelSalidos.GetComponent<RectTransform>().
 					}
 				}
 				yasta = false;
