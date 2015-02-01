@@ -40,7 +40,7 @@ public class GameScript : MonoBehaviour {
                         salio.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
                         salio.transform.localPosition = new Vector2(0, 655 - 120 * numerosSalidos.Count);
 
-                        if (numerosSalidos.Count > 10)
+                        //if (numerosSalidos.Count > 10)
                             //panelSalidos.GetComponent<RectTransform>().
 					}
 				}
