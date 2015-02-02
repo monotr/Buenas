@@ -38,10 +38,7 @@ public class GameScript : MonoBehaviour {
 						salio.GetComponent<Image>().sprite = cartas[rando];
 						salio.transform.SetParent (panelSalidos.transform);
                         salio.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
-                        salio.transform.localPosition = new Vector2(0, 655 - 120 * numerosSalidos.Count);
-
-                        //if (numerosSalidos.Count > 10)
-                            //panelSalidos.GetComponent<RectTransform>().
+                        salio.transform.localPosition = new Vector2(0, 3300 - 120 * numerosSalidos.Count);
 					}
 				}
 				yasta = false;
@@ -50,4 +47,12 @@ public class GameScript : MonoBehaviour {
 				print ("no mas cartas");
 		}
 	}
+
+    public void scroll()
+    {
+        if (numerosSalidos.Count > 10)
+        {
+
+        }
+    }
 }
