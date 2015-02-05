@@ -47,7 +47,7 @@ public class GameScript : MonoBehaviour
             numeros.Add(i);
         }
         panelSalidos.GetComponent<RectTransform>().pivot = Vector2.zero;
-        panelSalidos.GetComponent<RectTransform>().position = new Vector3(10, 20, 0);
+        panelSalidos.GetComponent<RectTransform>().position = new Vector3(6, 20, 0);
         panelSalidos.GetComponent<RectTransform>().sizeDelta = new Vector3(0, 0, 0);
         colocar = false;
     }
