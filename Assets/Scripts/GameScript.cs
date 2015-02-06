@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class GameScript : MonoBehaviour
 {
+    public GameObject panelMenu;
     public Sprite[] cartas;
     public GameObject carta;
     private Image cambioCarta;
@@ -443,8 +444,24 @@ public class GameScript : MonoBehaviour
             leyenda.text = "No hay más cartas";
     }
 
+    public void menu()
+    {
+        panelMenu.SetActive(true);
+    }
+
     public void restart()
     {
         Application.LoadLevel(Application.loadedLevel);
+        panelMenu.SetActive(false);
+    }
+
+    public void quit()
+    {
+        Application.Quit();
+    }
+
+    public void closeMenu()
+    {
+        panelMenu.SetActive(false);
     }
 }
