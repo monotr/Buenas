@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class GameScript : MonoBehaviour
 {
+    public GameObject panelMenu;
     public Sprite[] cartas;
     public GameObject carta;
     private Image cambioCarta;
@@ -47,7 +48,7 @@ public class GameScript : MonoBehaviour
             numeros.Add(i);
         }
         panelSalidos.GetComponent<RectTransform>().pivot = Vector2.zero;
-        panelSalidos.GetComponent<RectTransform>().position = new Vector3(10, 20, 0);
+        panelSalidos.GetComponent<RectTransform>().position = new Vector3(6, 20, 0);
         panelSalidos.GetComponent<RectTransform>().sizeDelta = new Vector3(0, 0, 0);
         colocar = false;
     }
@@ -443,8 +444,24 @@ public class GameScript : MonoBehaviour
             leyenda.text = "No hay más cartas";
     }
 
+    public void menu()
+    {
+        panelMenu.SetActive(true);
+    }
+
     public void restart()
     {
         Application.LoadLevel(Application.loadedLevel);
+        panelMenu.SetActive(false);
+    }
+
+    public void quit()
+    {
+        Application.Quit();
+    }
+
+    public void closeMenu()
+    {
+        panelMenu.SetActive(false);
     }
 }
