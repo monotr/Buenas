@@ -131,6 +131,8 @@ public class GameScript : MonoBehaviour
     public void shuffle()
     {
         buscadorCarta.GetComponent<InputField>().text = "Buscar carta...";
+        carta.GetComponentInChildren<Text>().enabled = false;
+        GameObject.Find("PlayButton").GetComponent<Image>().enabled = false;
         if (numeros.Count > 0)
         {
             while (!yasta)
