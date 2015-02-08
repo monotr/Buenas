@@ -93,7 +93,7 @@ public class GameScript : MonoBehaviour
         {
             int temp = 0;
             foreach (int item1 in numerosSalidos)
-                if ((cartas[item1].name.Contains(buscadorCarta.text)))
+                if ((cartas[item1].name.Contains(buscadorCarta.text.ToLower())))
                     temp++;
             if (temp > 7)
                 scroller.GetComponent<ScrollRect>().enabled = true;
@@ -108,7 +108,7 @@ public class GameScript : MonoBehaviour
             }
             temp = 0;
             foreach (int item in numerosSalidos)
-                if ((cartas[item].name.Contains(buscadorCarta.text)))
+                if ((cartas[item].name.Contains(buscadorCarta.text.ToLower())))
                 {
                     GameObject salio = Instantiate(cartaSalida, Vector3.zero, Quaternion.identity) as GameObject;
                     salio.GetComponent<Image>().sprite = cartas[item];
@@ -131,6 +131,8 @@ public class GameScript : MonoBehaviour
     public void shuffle()
     {
         buscadorCarta.GetComponent<InputField>().text = "Buscar carta...";
+        carta.GetComponentInChildren<Text>().enabled = false;
+        GameObject.Find("PlayButton").GetComponent<Image>().enabled = false;
         if (numeros.Count > 0)
         {
             while (!yasta)
