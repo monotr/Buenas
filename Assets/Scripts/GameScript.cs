@@ -84,12 +84,14 @@ public class GameScript : MonoBehaviour
             numerosSalidos.Reverse();
             colocar = true;
         }
-        //try
-        //{
-        //    cambioCarta.sprite = panelSalidos.GetComponent<Transform>().GetChild(0).GetComponent<Image>().sprite;
-        //    leyenda.text = leyendas[int.Parse(panelSalidos.GetComponent<Transform>().GetChild(0).name)];
-        //}
-        //catch { }
+
+        try
+        {
+            cambioCarta.sprite = panelSalidos.GetComponent<Transform>().GetChild(0).GetComponent<Image>().sprite;
+            //leyenda.text = leyendas[int.Parse(panelSalidos.GetComponent<Transform>().GetChild(0).name)];
+        }
+        catch { }
+        
     }
 
     public void search()
@@ -109,7 +111,7 @@ public class GameScript : MonoBehaviour
                 int rando = Random.Range(0, cartas.Length);
                 if (numeros.Contains(rando))
                 {
-                    cambioCarta.sprite = cartas[rando];
+                    //cambioCarta.sprite = cartas[rando];
                     numerosSalidos.Add(rando);
                     numeros.Remove(rando);
                     yasta = true;
