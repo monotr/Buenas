@@ -47,89 +47,59 @@ public class GameScript : MonoBehaviour
         {
             numeros.Add(i);
         }
-        panelSalidos.GetComponent<RectTransform>().pivot = Vector2.zero;
-        panelSalidos.GetComponent<RectTransform>().position = new Vector3(8, 20, 0);
+        panelSalidos.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
         panelSalidos.GetComponent<RectTransform>().sizeDelta = new Vector3(0, 0, 0);
         colocar = false;
     }
 
     void Update()
     {
-        try
+        if (!colocar)
         {
-            foreach (GameObject item in GameObject.FindGameObjectsWithTag("Cartas"))
-                Destroy(item);
-        }
-        catch { }
-
-        if (buscadorCarta.text == "" || buscadorCarta.text == "Buscar carta...")
-        {
-            if (numerosSalidos.Count > 7)
-                scroller.GetComponent<ScrollRect>().enabled = true;
-            else
-                scroller.GetComponent<ScrollRect>().enabled = false;
-            int iterator = 0;
-            panelSalidos.GetComponent<RectTransform>().sizeDelta = new Vector2(108, 80.6f * numerosSalidos.Count * 2);
-            if (colocar)
+            try
             {
-                panelSalidos.GetComponent<RectTransform>().localPosition = new Vector3(panelSalidos.GetComponent<RectTransform>().localPosition.x,
-                                                                                       -1800 + (numerosSalidos.Count - 15) * -161.2f, 0);
-                colocar = false;
+                foreach (GameObject item in GameObject.FindGameObjectsWithTag("Cartas"))
+                    Destroy(item);
             }
+            catch { }
+            panelSalidos.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 161.2f * numerosSalidos.Count);
+            panelSalidos.GetComponent<RectTransform>().localPosition = new Vector2(0, 80.6f - 80.6f * numerosSalidos.Count);
+            int iterator = 0;
+            numerosSalidos.Reverse();
             foreach (int item in numerosSalidos)
             {
-                GameObject salio = Instantiate(cartaSalida, Vector3.zero, Quaternion.identity) as GameObject;
+                if (cartas[item].name.Contains(buscadorCarta.text.ToLower()) || buscadorCarta.text == "Buscar carta...")
+                {
+                    GameObject salio = Instantiate(cartaSalida, Vector3.zero, Quaternion.identity) as GameObject;
                 salio.GetComponent<Image>().sprite = cartas[item];
                 salio.transform.SetParent(panelSalidos.transform);
                 salio.transform.localScale = new Vector3(2, 2, 1);
-                salio.GetComponent<Image>().transform.localPosition = new Vector3(54, 80.6f + 80.6f * iterator * 2, 0);
+                salio.GetComponent<Image>().transform.localPosition = new Vector3(0,
+                    panelSalidos.GetComponent<RectTransform>().sizeDelta.y / 2 - 161.2f * iterator - 80.6f, 0);
                 salio.name = item.ToString();
                 salio.tag = "Cartas";
                 iterator++;
-            }
-        }
-
-        else
-        {
-            int temp = 0;
-            foreach (int item1 in numerosSalidos)
-                if ((cartas[item1].name.Contains(buscadorCarta.text.ToLower())))
-                    temp++;
-            if (temp > 7)
-                scroller.GetComponent<ScrollRect>().enabled = true;
-            else
-                scroller.GetComponent<ScrollRect>().enabled = false;
-            panelSalidos.GetComponent<RectTransform>().sizeDelta = new Vector2(108, 80.6f * temp * 2);
-            if (colocar)
-            {
-                panelSalidos.GetComponent<RectTransform>().localPosition = new Vector3(panelSalidos.GetComponent<RectTransform>().localPosition.x,
-                                                                                       -1800 + (temp - 15) * -161.2f, 0);
-                colocar = false;
-            }
-            temp = 0;
-            foreach (int item in numerosSalidos)
-                if ((cartas[item].name.Contains(buscadorCarta.text.ToLower())))
-                {
-                    GameObject salio = Instantiate(cartaSalida, Vector3.zero, Quaternion.identity) as GameObject;
-                    salio.GetComponent<Image>().sprite = cartas[item];
-                    salio.transform.SetParent(panelSalidos.transform);
-                    salio.transform.localScale = new Vector3(2, 2, 1);
-                    salio.GetComponent<Image>().transform.localPosition = new Vector3(54, 80.6f + 80.6f * temp * 2, 0);
-                    salio.name = item.ToString();
-                    salio.tag = "Cartas";
-                    temp++;
                 }
+            }
+            numerosSalidos.Reverse();
+            colocar = true;
         }
-
+        //try
+        //{
+        //    cambioCarta.sprite = panelSalidos.GetComponent<Transform>().GetChild(0).GetComponent<Image>().sprite;
+        //    leyenda.text = leyendas[int.Parse(panelSalidos.GetComponent<Transform>().GetChild(0).name)];
+        //}
+        //catch { }
     }
 
-    public void text()
+    public void search()
     {
-        colocar = true;
+        colocar = false;
     }
 
     public void shuffle()
     {
+        colocar = false;
         buscadorCarta.GetComponent<InputField>().text = "Buscar carta...";
         carta.GetComponentInChildren<Text>().enabled = false;
         if (numeros.Count > 0)
@@ -439,7 +409,6 @@ public class GameScript : MonoBehaviour
                 }
             }
             yasta = false;
-            colocar = true;
         }
         else
             leyenda.text = "No hay más cartas";
