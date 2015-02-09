@@ -48,7 +48,7 @@ public class GameScript : MonoBehaviour
             numeros.Add(i);
         }
         panelSalidos.GetComponent<RectTransform>().pivot = Vector2.zero;
-        panelSalidos.GetComponent<RectTransform>().position = new Vector3(6, 20, 0);
+        panelSalidos.GetComponent<RectTransform>().position = new Vector3(8, 20, 0);
         panelSalidos.GetComponent<RectTransform>().sizeDelta = new Vector3(0, 0, 0);
         colocar = false;
     }
@@ -132,7 +132,6 @@ public class GameScript : MonoBehaviour
     {
         buscadorCarta.GetComponent<InputField>().text = "Buscar carta...";
         carta.GetComponentInChildren<Text>().enabled = false;
-        GameObject.Find("PlayButton").GetComponent<Image>().enabled = false;
         if (numeros.Count > 0)
         {
             while (!yasta)
