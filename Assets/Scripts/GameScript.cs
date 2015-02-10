@@ -70,7 +70,7 @@ public class GameScript : MonoBehaviour
             {
                 if (cartas[item].name.Contains(buscadorCarta.text.ToLower()) || buscadorCarta.text == "Buscar carta...")
                 {
-                    GameObject salio = Instantiate(cartaSalida, Vector3.zero, Quaternion.identity) as GameObject;
+                 GameObject salio = Instantiate(cartaSalida, Vector3.zero, Quaternion.identity) as GameObject;
                 salio.GetComponent<Image>().sprite = cartas[item];
                 salio.transform.SetParent(panelSalidos.transform);
                 salio.transform.localScale = new Vector3(2, 2, 1);
@@ -84,13 +84,6 @@ public class GameScript : MonoBehaviour
             numerosSalidos.Reverse();
             colocar = true;
         }
-
-        try
-        {
-            cambioCarta.sprite = panelSalidos.GetComponent<Transform>().GetChild(0).GetComponent<Image>().sprite;
-            //leyenda.text = leyendas[int.Parse(panelSalidos.GetComponent<Transform>().GetChild(0).name)];
-        }
-        catch { }
         
     }
 
@@ -111,7 +104,7 @@ public class GameScript : MonoBehaviour
                 int rando = Random.Range(0, cartas.Length);
                 if (numeros.Contains(rando))
                 {
-                    //cambioCarta.sprite = cartas[rando];
+                    cambioCarta.sprite = cartas[rando];
                     numerosSalidos.Add(rando);
                     numeros.Remove(rando);
                     yasta = true;
