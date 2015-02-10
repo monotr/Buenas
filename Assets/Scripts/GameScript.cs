@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class GameScript : MonoBehaviour
 {
+    public RaycastHit hit;
     public GameObject panelMenu;
     public Sprite[] cartas;
     public GameObject carta;
@@ -83,6 +84,17 @@ public class GameScript : MonoBehaviour
             }
             numerosSalidos.Reverse();
             colocar = true;
+        }
+
+        if (Input.touchCount > 0)
+        {
+            if (Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                var ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+                if (Physics.Raycast(ray, out hit))
+                    if (hit.collider.tag == "Cartas")
+                        print("hit");
+            }
         }
         
     }
