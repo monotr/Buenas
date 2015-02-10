@@ -1711,7 +1711,7 @@ CanvasRenderer:
 --- !u!1 &1430323196
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 170526, guid: b0aef111fc8692449acb576b2eb212da, type: 2}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 4
   m_Component:
@@ -1731,7 +1731,8 @@ GameObject:
 --- !u!114 &1430323197
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 11470526, guid: b0aef111fc8692449acb576b2eb212da,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1430323196}
   m_Enabled: 1
@@ -1805,28 +1806,32 @@ MonoBehaviour:
 --- !u!81 &1430323198
 AudioListener:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 8170526, guid: b0aef111fc8692449acb576b2eb212da,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1430323196}
   m_Enabled: 1
 --- !u!124 &1430323199
 Behaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 12470526, guid: b0aef111fc8692449acb576b2eb212da,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1430323196}
   m_Enabled: 1
 --- !u!92 &1430323200
 Behaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 9270526, guid: b0aef111fc8692449acb576b2eb212da,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1430323196}
   m_Enabled: 1
 --- !u!20 &1430323201
 Camera:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 2070526, guid: b0aef111fc8692449acb576b2eb212da,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1430323196}
   m_Enabled: 1
@@ -1858,7 +1863,7 @@ Camera:
 --- !u!4 &1430323202
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 470526, guid: b0aef111fc8692449acb576b2eb212da, type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1430323196}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}

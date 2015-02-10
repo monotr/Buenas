@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class GameScript : MonoBehaviour
 {
-    public RaycastHit hit;
     public GameObject panelMenu;
     public Sprite[] cartas;
     public GameObject carta;
@@ -71,32 +70,25 @@ public class GameScript : MonoBehaviour
             {
                 if (cartas[item].name.Contains(buscadorCarta.text.ToLower()) || buscadorCarta.text == "Buscar carta...")
                 {
-                 GameObject salio = Instantiate(cartaSalida, Vector3.zero, Quaternion.identity) as GameObject;
-                salio.GetComponent<Image>().sprite = cartas[item];
-                salio.transform.SetParent(panelSalidos.transform);
-                salio.transform.localScale = new Vector3(2, 2, 1);
-                salio.GetComponent<Image>().transform.localPosition = new Vector3(0,
-                    panelSalidos.GetComponent<RectTransform>().sizeDelta.y / 2 - 161.2f * iterator - 80.6f, 0);
-                salio.name = item.ToString();
-                salio.tag = "Cartas";
-                iterator++;
+                    GameObject salio = Instantiate(cartaSalida, Vector3.zero, Quaternion.identity) as GameObject;
+                    salio.GetComponent<Image>().sprite = cartas[item];
+                    salio.transform.SetParent(panelSalidos.transform);
+                    salio.transform.localScale = new Vector3(2, 2, 1);
+                    salio.GetComponent<Image>().transform.localPosition = new Vector3(0, panelSalidos.GetComponent<RectTransform>().sizeDelta.y / 2 - 161.2f * iterator - 80.6f, 0);
+                    salio.name = item.ToString();
+                    salio.GetComponent<Button>().onClick.AddListener(() => { selection(int.Parse(salio.name)); });
+                    iterator++;
                 }
             }
             numerosSalidos.Reverse();
             colocar = true;
         }
+    }
 
-        if (Input.touchCount > 0)
-        {
-            if (Input.GetTouch(0).phase == TouchPhase.Began)
-            {
-                var ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-                if (Physics.Raycast(ray, out hit))
-                    if (hit.collider.tag == "Cartas")
-                        print("hit");
-            }
-        }
-        
+    public void selection(int change)
+    {
+        cambioCarta.sprite = cartas[change];
+        leyenda.text = leyendas[change];
     }
 
     public void search()
