@@ -1007,18 +1007,18 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 7d4715cebb1639746811644dff79bd1a, type: 3}
-    m_FontSize: 24
+    m_Font: {fileID: 12800000, guid: 72f1d940d6e686447b8203e636dde922, type: 3}
+    m_FontSize: 70
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 10
-    m_MaxSize: 40
+    m_MaxSize: 100
     m_Alignment: 4
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\xA1BUENAS!"
+  m_Text: BUENAS!
 --- !u!222 &652762674
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1336,7 +1336,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &745892158
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1981,6 +1981,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 962d64bf846b53b4bb4eeb48f3e10619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arial: {fileID: 12800000, guid: 272433740e85aa1468ebc254b5d07bc5, type: 3}
   panelMenu: {fileID: 745892157}
   cartasOriginales:
   - {fileID: 21300000, guid: 58bfd2ccaecb156439f4147c82b6a822, type: 3}
@@ -2038,7 +2039,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 91fc230f20525a0479d4570a7a859112, type: 3}
   - {fileID: 21300000, guid: df4a1c34ad61b1f4f9382dc3935410be, type: 3}
   cartasBabyShower:
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 80c9f7924866b224c94acc93752578ab, type: 3}
   - {fileID: 21300000, guid: 571989eb3bb6f654aab59bb63043c7e3, type: 3}
   - {fileID: 21300000, guid: 85d6aa29ae5f67c44890bf65930202b3, type: 3}
   - {fileID: 21300000, guid: 054c9131c6c16944cbdf4b4439d9dc28, type: 3}
@@ -2047,9 +2048,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: add9127601b98d94da4de0219021fc7e, type: 3}
   - {fileID: 21300000, guid: af064ce4f340d374e9a03f00845d95e4, type: 3}
   - {fileID: 21300000, guid: 15a90e105c17fca498c7dc058a9f86b6, type: 3}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 4a7c351955306ce4ea7d5fb4936c8296, type: 3}
   - {fileID: 21300000, guid: 21e739edb2c03c443b5285c69752c918, type: 3}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 3b6e21f1adef0464195b45a502c9b46a, type: 3}
   - {fileID: 21300000, guid: 58c936bb99dc3b1478eed405cfb7d781, type: 3}
   - {fileID: 21300000, guid: 173f46d16555b6f4fb8f0e4362877b26, type: 3}
   - {fileID: 21300000, guid: 8432863619b64b04d9fbac8a71dc0e78, type: 3}
@@ -2102,6 +2103,7 @@ MonoBehaviour:
   scroller: {fileID: 1214425981}
   barajaPack: {fileID: 0}
   indestructible: {fileID: 152490, guid: 1deda865d9ea02240a7274bdbaba064e, type: 2}
+  cambiarBaraja: {fileID: 533458490}
 --- !u!81 &1430323198
 AudioListener:
   m_ObjectHideFlags: 0
