@@ -482,13 +482,17 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11400000, guid: fca239d85456dba40bfd66d84f5b2eca, type: 2}
+      propertyPath: AdvertisementRules.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fca239d85456dba40bfd66d84f5b2eca, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fca239d85456dba40bfd66d84f5b2eca, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1.52587891e-05
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fca239d85456dba40bfd66d84f5b2eca, type: 2}
       propertyPath: m_LocalPosition.z
@@ -524,6 +528,26 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: fca239d85456dba40bfd66d84f5b2eca, type: 2}
       propertyPath: AdvertisementSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: fca239d85456dba40bfd66d84f5b2eca, type: 2}
+      propertyPath: AdvertisementRules.Array.data[0]
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: fca239d85456dba40bfd66d84f5b2eca, type: 2}
+      propertyPath: AdvertisementRules.Array.data[1]
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: fca239d85456dba40bfd66d84f5b2eca, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: fca239d85456dba40bfd66d84f5b2eca, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: fca239d85456dba40bfd66d84f5b2eca, type: 2}
+      propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -664,7 +688,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &533458491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1154,7 +1178,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &715703004
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1618,7 +1642,7 @@ MonoBehaviour:
   TestDeviceID: 1
   AdvertisementSize: 1
   ShowOnLoad: 1
-  AdvertisementRules: 
+  AdvertisementRules: 0c000000
 --- !u!4 &760892282
 Transform:
   m_ObjectHideFlags: 0
@@ -1626,7 +1650,7 @@ Transform:
   m_PrefabInternal: {fileID: 404271134}
   m_GameObject: {fileID: 760892280}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: -1.52587891e-05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2503,7 +2527,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2060153495
 RectTransform:
   m_ObjectHideFlags: 0

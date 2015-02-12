@@ -46,6 +46,7 @@ public class GameScript : MonoBehaviour
 
     void Start()
     {
+		AdmobVNTIS.showBanner ();
 		if(GameObject.Find("Store_Settings(Clone)") == null){
 			GameObject indes = Instantiate(indestructible) as GameObject;
 			barajaPack = indes;
@@ -453,7 +454,6 @@ public class GameScript : MonoBehaviour
     {
 		try{
 		AdmobVNTIS_Interstitial.showInterstitial ();
-		AdmobVNTIS.showBanner ();
 		}
 		catch{}
 		Application.LoadLevel(Application.loadedLevel);
