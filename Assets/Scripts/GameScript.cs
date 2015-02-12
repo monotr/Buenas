@@ -7,8 +7,10 @@ public class GameScript : MonoBehaviour
 {
     public RaycastHit hit;
     public GameObject panelMenu;
-    public Sprite[] cartas;
-    public GameObject carta;
+    public Sprite[] cartasOriginales;
+	public Sprite[] cartasBabyShower;
+	public Sprite[] cartas;
+	public GameObject carta;
     private Image cambioCarta;
     private List<int> numeros;
     public List<int> numerosSalidos;
@@ -19,6 +21,10 @@ public class GameScript : MonoBehaviour
     public Text leyenda;
     public GameObject scroller;
     bool colocar;
+	public AdmobVNTIS_Interstitial AdmobVNTIS_Interstitial;
+	public AdmobVNTIS AdmobVNTIS;
+	public GameObject barajaPack;
+
     string[] leyendas = { "El que la cantó a San Pedro", "Pórtate bien cuatito, si no te lleva el coloradito", "Puliendo el paso, por toda la calle real",
                         "Don Ferruco en la alameda, su bastón quería tirar", "Para el sol y para el agua", "Medio cuerpo de señora se divisa en altamar",
                         "Súbeme paso a pasito, no quieras pegar brinquitos", "La herramienta del borracho", "Tanto bebió el albañil, que quedó como barril",
@@ -40,6 +46,17 @@ public class GameScript : MonoBehaviour
 
     void Start()
     {
+		int baraja = barajaPack.gameObject.GetComponent<ExampleWindow> ().packNum;
+
+		switch (baraja) {
+		case 0:
+			cartas = cartasOriginales;
+			break;
+		case 1:
+			cartas = cartasBabyShower;
+			break;
+		}
+
         numeros = new List<int>();
         numerosSalidos = new List<int>();
         cambioCarta = carta.GetComponent<Image>();
@@ -118,6 +135,8 @@ public class GameScript : MonoBehaviour
                 {
                     cambioCarta.sprite = cartas[rando];
                     numerosSalidos.Add(rando);
+					if(numerosSalidos.Count == 1)
+						AdmobVNTIS.hideBanner ();
                     numeros.Remove(rando);
                     yasta = true;
                     if (rando == 9)
@@ -428,6 +447,8 @@ public class GameScript : MonoBehaviour
 
     public void restart()
     {
+		AdmobVNTIS_Interstitial.showInterstitial ();
+		AdmobVNTIS.showBanner ();
         Application.LoadLevel(Application.loadedLevel);
         panelMenu.SetActive(false);
     }
@@ -436,6 +457,10 @@ public class GameScript : MonoBehaviour
     {
         Application.Quit();
     }
+
+	public void babyshowerPack(){
+		cartas = cartasBabyShower;
+	}
 
     public void closeMenu()
     {
