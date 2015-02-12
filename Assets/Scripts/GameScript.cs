@@ -6,8 +6,10 @@ using UnityEngine.UI;
 public class GameScript : MonoBehaviour
 {
     public GameObject panelMenu;
-    public Sprite[] cartas;
-    public GameObject carta;
+    public Sprite[] cartasOriginales;
+	public Sprite[] cartasBabyShower;
+	public Sprite[] cartas;
+	public GameObject carta;
     private Image cambioCarta;
     private List<int> numeros;
     public List<int> numerosSalidos;
@@ -18,6 +20,11 @@ public class GameScript : MonoBehaviour
     public Text leyenda;
     public GameObject scroller;
     bool colocar;
+	public AdmobVNTIS_Interstitial AdmobVNTIS_Interstitial;
+	public AdmobVNTIS AdmobVNTIS;
+	public GameObject barajaPack;
+	public GameObject indestructible;
+
     string[] leyendas = { "El que la cantó a San Pedro", "Pórtate bien cuatito, si no te lleva el coloradito", "Puliendo el paso, por toda la calle real",
                         "Don Ferruco en la alameda, su bastón quería tirar", "Para el sol y para el agua", "Medio cuerpo de señora se divisa en altamar",
                         "Súbeme paso a pasito, no quieras pegar brinquitos", "La herramienta del borracho", "Tanto bebió el albañil, que quedó como barril",
@@ -39,6 +46,26 @@ public class GameScript : MonoBehaviour
 
     void Start()
     {
+		AdmobVNTIS.showBanner ();
+		if(GameObject.Find("Store_Settings(Clone)") == null){
+			GameObject indes = Instantiate(indestructible) as GameObject;
+			barajaPack = indes;
+		}
+		else{
+			barajaPack = GameObject.Find("Store_Settings(Clone)");
+		}
+
+		int baraja = barajaPack.gameObject.GetComponent<DLCScript> ().packNum;
+
+		switch (baraja) {
+		case 0:
+			cartas = cartasOriginales;
+			break;
+		case 1:
+			cartas = cartasBabyShower;
+			break;
+		}
+
         numeros = new List<int>();
         numerosSalidos = new List<int>();
         cambioCarta = carta.GetComponent<Image>();
@@ -110,6 +137,11 @@ public class GameScript : MonoBehaviour
                 {
                     cambioCarta.sprite = cartas[rando];
                     numerosSalidos.Add(rando);
+					try{
+					if(numerosSalidos.Count == 1)
+						AdmobVNTIS.hideBanner ();
+					}
+					catch{}
                     numeros.Remove(rando);
                     yasta = true;
                     if (rando == 9)
@@ -420,7 +452,11 @@ public class GameScript : MonoBehaviour
 
     public void restart()
     {
-        Application.LoadLevel(Application.loadedLevel);
+		try{
+		AdmobVNTIS_Interstitial.showInterstitial ();
+		}
+		catch{}
+		Application.LoadLevel(Application.loadedLevel);
         panelMenu.SetActive(false);
     }
 
@@ -428,6 +464,11 @@ public class GameScript : MonoBehaviour
     {
         Application.Quit();
     }
+
+	public void babyshowerPack(){
+		barajaPack.gameObject.GetComponent<DLCScript> ().packNum = 1;
+		restart ();
+	}
 
     public void closeMenu()
     {
