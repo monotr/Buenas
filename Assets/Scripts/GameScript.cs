@@ -20,8 +20,6 @@ public class GameScript : MonoBehaviour
     public Text leyenda;
     public GameObject scroller;
     bool colocar;
-	public AdmobVNTIS_Interstitial AdmobVNTIS_Interstitial;
-	public AdmobVNTIS AdmobVNTIS;
 	public GameObject barajaPack;
 	public GameObject indestructible;
 
@@ -46,7 +44,6 @@ public class GameScript : MonoBehaviour
 
     void Start()
     {
-		AdmobVNTIS.showBanner ();
 		if(GameObject.Find("Store_Settings(Clone)") == null){
 			GameObject indes = Instantiate(indestructible) as GameObject;
 			barajaPack = indes;
@@ -137,11 +134,6 @@ public class GameScript : MonoBehaviour
                 {
                     cambioCarta.sprite = cartas[rando];
                     numerosSalidos.Add(rando);
-					try{
-					if(numerosSalidos.Count == 1)
-						AdmobVNTIS.hideBanner ();
-					}
-					catch{}
                     numeros.Remove(rando);
                     yasta = true;
                     if (rando == 9)
@@ -452,10 +444,6 @@ public class GameScript : MonoBehaviour
 
     public void restart()
     {
-		try{
-		AdmobVNTIS_Interstitial.showInterstitial ();
-		}
-		catch{}
 		Application.LoadLevel(Application.loadedLevel);
         panelMenu.SetActive(false);
     }
