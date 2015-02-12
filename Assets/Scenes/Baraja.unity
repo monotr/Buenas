@@ -524,7 +524,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: fca239d85456dba40bfd66d84f5b2eca, type: 2}
       propertyPath: AdvertisementSize
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fca239d85456dba40bfd66d84f5b2eca, type: 2}
@@ -704,8 +704,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1029085127}
-        m_MethodName: buy_BS
+      - m_Target: {fileID: 1430323197}
+        m_MethodName: babyshowerPack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1616,7 +1616,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BannerAdUnitID: ca-app-pub-7147341142198078/6229595548
   TestDeviceID: 1
-  AdvertisementSize: 5
+  AdvertisementSize: 1
   ShowOnLoad: 1
   AdvertisementRules: 
 --- !u!4 &760892282
@@ -1697,49 +1697,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 875485749}
---- !u!1 &1029085126
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1029085128}
-  - 114: {fileID: 1029085127}
-  m_Layer: 0
-  m_Name: Store
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1029085127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1029085126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2510b03bc670844d59afb64491e9e612, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cube: {fileID: 0}
-  secTime: 2
-  totTime: 0
-  greenCubeIAPOwned: 0
---- !u!4 &1029085128
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1029085126}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.5975037, y: 163.125, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
 --- !u!1 &1045655453
 GameObject:
   m_ObjectHideFlags: 0
@@ -2347,6 +2304,8 @@ MonoBehaviour:
   scroller: {fileID: 1214425981}
   AdmobVNTIS_Interstitial: {fileID: 1046706687}
   AdmobVNTIS: {fileID: 760892281}
+  barajaPack: {fileID: 0}
+  indestructible: {fileID: 152490, guid: 1deda865d9ea02240a7274bdbaba064e, type: 2}
 --- !u!81 &1430323198
 AudioListener:
   m_ObjectHideFlags: 0

@@ -24,6 +24,7 @@ public class GameScript : MonoBehaviour
 	public AdmobVNTIS_Interstitial AdmobVNTIS_Interstitial;
 	public AdmobVNTIS AdmobVNTIS;
 	public GameObject barajaPack;
+	public GameObject indestructible;
 
     string[] leyendas = { "El que la cantó a San Pedro", "Pórtate bien cuatito, si no te lleva el coloradito", "Puliendo el paso, por toda la calle real",
                         "Don Ferruco en la alameda, su bastón quería tirar", "Para el sol y para el agua", "Medio cuerpo de señora se divisa en altamar",
@@ -46,7 +47,15 @@ public class GameScript : MonoBehaviour
 
     void Start()
     {
-		int baraja = barajaPack.gameObject.GetComponent<ExampleWindow> ().packNum;
+		if(GameObject.Find("Store_Settings(Clone)") == null){
+			GameObject indes = Instantiate(indestructible) as GameObject;
+			barajaPack = indes;
+		}
+		else{
+			barajaPack = GameObject.Find("Store_Settings(Clone)");
+		}
+
+		int baraja = barajaPack.gameObject.GetComponent<DLCScript> ().packNum;
 
 		switch (baraja) {
 		case 0:
@@ -135,8 +144,11 @@ public class GameScript : MonoBehaviour
                 {
                     cambioCarta.sprite = cartas[rando];
                     numerosSalidos.Add(rando);
+					try{
 					if(numerosSalidos.Count == 1)
 						AdmobVNTIS.hideBanner ();
+					}
+					catch{}
                     numeros.Remove(rando);
                     yasta = true;
                     if (rando == 9)
@@ -447,9 +459,12 @@ public class GameScript : MonoBehaviour
 
     public void restart()
     {
+		try{
 		AdmobVNTIS_Interstitial.showInterstitial ();
 		AdmobVNTIS.showBanner ();
-        Application.LoadLevel(Application.loadedLevel);
+		}
+		catch{}
+		Application.LoadLevel(Application.loadedLevel);
         panelMenu.SetActive(false);
     }
 
@@ -459,7 +474,8 @@ public class GameScript : MonoBehaviour
     }
 
 	public void babyshowerPack(){
-		cartas = cartasBabyShower;
+		barajaPack.gameObject.GetComponent<DLCScript> ().packNum = 1;
+		restart ();
 	}
 
     public void closeMenu()

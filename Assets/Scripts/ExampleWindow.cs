@@ -17,11 +17,7 @@ namespace Soomla.Store.Example
 		public float secTime			= 2.0f;
 		public float totTime			= 0.0f;
 		public bool greenCubeIAPOwned  = false;
-		public int packNum = 0;
 
-		void Awake() {
-			DontDestroyOnLoad(transform.gameObject);
-		}
 
 		//Load the Scene with the cube/ setup the soomla intergration
 		void Start () 
