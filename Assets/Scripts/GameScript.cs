@@ -5,9 +5,12 @@ using UnityEngine.UI;
 
 public class GameScript : MonoBehaviour
 {
+    public Font arial;
     public GameObject panelMenu;
-    public Sprite[] cartas;
-    public GameObject carta;
+    public Sprite[] cartasOriginales;
+	public Sprite[] cartasBabyShower;
+	public Sprite[] cartas;
+	public GameObject carta;
     private Image cambioCarta;
     private List<int> numeros;
     public List<int> numerosSalidos;
@@ -18,6 +21,11 @@ public class GameScript : MonoBehaviour
     public Text leyenda;
     public GameObject scroller;
     bool colocar;
+	public GameObject barajaPack;
+	public GameObject indestructible;
+    private int baraja;
+    public GameObject cambiarBaraja;
+
     string[] leyendas = { "El que la cantó a San Pedro", "Pórtate bien cuatito, si no te lleva el coloradito", "Puliendo el paso, por toda la calle real",
                         "Don Ferruco en la alameda, su bastón quería tirar", "Para el sol y para el agua", "Medio cuerpo de señora se divisa en altamar",
                         "Súbeme paso a pasito, no quieras pegar brinquitos", "La herramienta del borracho", "Tanto bebió el albañil, que quedó como barril",
@@ -39,6 +47,30 @@ public class GameScript : MonoBehaviour
 
     void Start()
     {
+		if(GameObject.Find("Store_Settings(Clone)") == null){
+			GameObject indes = Instantiate(indestructible) as GameObject;
+			barajaPack = indes;
+		}
+		else{
+			barajaPack = GameObject.Find("Store_Settings(Clone)");
+		}
+
+		baraja = barajaPack.gameObject.GetComponent<DLCScript> ().packNum;
+        
+        panelMenu.SetActive(true);
+		
+        switch (baraja) {
+		case 0:
+            cambiarBaraja.GetComponentInChildren<Text>().text = "BabyShower";
+			cartas = cartasOriginales;
+			break;
+		case 1:
+            cambiarBaraja.GetComponentInChildren<Text>().text = "Originales";
+			cartas = cartasBabyShower;
+			break;
+		}
+
+        panelMenu.SetActive(false);
         numeros = new List<int>();
         numerosSalidos = new List<int>();
         cambioCarta = carta.GetComponent<Image>();
@@ -88,7 +120,8 @@ public class GameScript : MonoBehaviour
     public void selection(int change)
     {
         cambioCarta.sprite = cartas[change];
-        leyenda.text = leyendas[change];
+        if (baraja == 0)
+            leyenda.text = leyendas[change];
     }
 
     public void search()
@@ -101,6 +134,11 @@ public class GameScript : MonoBehaviour
         colocar = false;
         buscadorCarta.GetComponent<InputField>().text = "Buscar carta...";
         carta.GetComponentInChildren<Text>().enabled = false;
+        if (baraja == 0)
+        {
+            leyenda.GetComponentInChildren<Text>().font = arial;
+            leyenda.GetComponentInChildren<Text>().resizeTextMaxSize = 50;
+        }
         if (numeros.Count > 0)
         {
             while (!yasta)
@@ -112,299 +150,302 @@ public class GameScript : MonoBehaviour
                     numerosSalidos.Add(rando);
                     numeros.Remove(rando);
                     yasta = true;
-                    if (rando == 9)
+                    if (baraja == 0)
                     {
-                        switch (Random.Range(0, 2))
-                        { 
-                            case 0:
-                                leyenda.text = leyendas[rando];
-                                break;
-                            case 1:
-                                leyenda.text = "El árbol grueso de El Tule";
-                                break;
-                        }
-                    }
-                    else if (rando == 10)
-                    {
-                        switch (Random.Range(0, 2))
+                        if (rando == 9)
                         {
-                            case 0:
-                                leyenda.text = leyendas[rando];
-                                break;
-                            case 1:
-                                leyenda.text = "El melón de tierra fría";
-                                break;
+                            switch (Random.Range(0, 2))
+                            {
+                                case 0:
+                                    leyenda.text = leyendas[rando];
+                                    break;
+                                case 1:
+                                    leyenda.text = "El árbol grueso de El Tule";
+                                    break;
+                            }
                         }
-                    }
-                    else if (rando == 11)
-                    {
-                        switch (Random.Range(0, 3))
+                        else if (rando == 10)
                         {
-                            case 0:
-                                leyenda.text = leyendas[rando];
-                                break;
-                            case 1:
-                                leyenda.text = "Por qué le corres cobarde, trayendo tan buen puñal";
-                                break;
-                            case 2:
-                                leyenda.text = "El valiente y su tranchete";
-                                break;
+                            switch (Random.Range(0, 2))
+                            {
+                                case 0:
+                                    leyenda.text = leyendas[rando];
+                                    break;
+                                case 1:
+                                    leyenda.text = "El melón de tierra fría";
+                                    break;
+                            }
                         }
-                    }
-                    else if (rando == 12)
-                    {
-                        switch (Random.Range(0, 2))
+                        else if (rando == 11)
                         {
-                            case 0:
-                                leyenda.text = leyendas[rando];
-                                break;
-                            case 1:
-                                leyenda.text = "Ponle su gorrito al nene, no se nos vaya a resfriar";
-                                break;
+                            switch (Random.Range(0, 3))
+                            {
+                                case 0:
+                                    leyenda.text = leyendas[rando];
+                                    break;
+                                case 1:
+                                    leyenda.text = "Por qué le corres cobarde, trayendo tan buen puñal";
+                                    break;
+                                case 2:
+                                    leyenda.text = "El valiente y su tranchete";
+                                    break;
+                            }
                         }
-                    }
-                    else if (rando == 13)
-                    {
-                        switch (Random.Range(0, 2))
+                        else if (rando == 12)
                         {
-                            case 0:
-                                leyenda.text = leyendas[rando];
-                                break;
-                            case 1:
-                                leyenda.text = "La muerte tilica y flaca";
-                                break;
+                            switch (Random.Range(0, 2))
+                            {
+                                case 0:
+                                    leyenda.text = leyendas[rando];
+                                    break;
+                                case 1:
+                                    leyenda.text = "Ponle su gorrito al nene, no se nos vaya a resfriar";
+                                    break;
+                            }
                         }
-                    }
-                    else if (rando == 19)
-                    {
-                        switch (Random.Range(0, 2))
+                        else if (rando == 13)
                         {
-                            case 0:
-                                leyenda.text = leyendas[rando];
-                                break;
-                            case 1:
-                                leyenda.text = "El pájaro chirlo mirlo";
-                                break;
+                            switch (Random.Range(0, 2))
+                            {
+                                case 0:
+                                    leyenda.text = leyendas[rando];
+                                    break;
+                                case 1:
+                                    leyenda.text = "La muerte tilica y flaca";
+                                    break;
+                            }
                         }
-                    }
-                    else if (rando == 20)
-                    {
-                        switch (Random.Range(0, 2))
+                        else if (rando == 19)
                         {
-                            case 0:
-                                leyenda.text = leyendas[rando];
-                                break;
-                            case 1:
-                                leyenda.text = "La mano de un escribano";
-                                break;
+                            switch (Random.Range(0, 2))
+                            {
+                                case 0:
+                                    leyenda.text = leyendas[rando];
+                                    break;
+                                case 1:
+                                    leyenda.text = "El pájaro chirlo mirlo";
+                                    break;
+                            }
                         }
-                    }
-                    else if (rando == 21)
-                    {
-                        switch (Random.Range(0, 2))
+                        else if (rando == 20)
                         {
-                            case 0:
-                                leyenda.text = leyendas[rando];
-                                break;
-                            case 1:
-                                leyenda.text = "Bótala si no te sirve";
-                                break;
+                            switch (Random.Range(0, 2))
+                            {
+                                case 0:
+                                    leyenda.text = leyendas[rando];
+                                    break;
+                                case 1:
+                                    leyenda.text = "La mano de un escribano";
+                                    break;
+                            }
                         }
-                    }
-                    else if (rando == 22)
-                    {
-                        switch (Random.Range(0, 2))
+                        else if (rando == 21)
                         {
-                            case 0:
-                                leyenda.text = leyendas[rando];
-                                break;
-                            case 1:
-                                leyenda.text = "Ya viene la linda luna rodeada de mil estrellas pa'lumbrar a mi morena cuando salga a su ventana";
-                                break;
+                            switch (Random.Range(0, 2))
+                            {
+                                case 0:
+                                    leyenda.text = leyendas[rando];
+                                    break;
+                                case 1:
+                                    leyenda.text = "Bótala si no te sirve";
+                                    break;
+                            }
                         }
-                    }
-                    else if (rando == 26)
-                    {
-                        switch (Random.Range(0, 2))
+                        else if (rando == 22)
                         {
-                            case 0:
-                                leyenda.text = leyendas[rando];
-                                break;
-                            case 1:
-                                leyenda.text = "El corazón de una ingrata";
-                                break;
+                            switch (Random.Range(0, 2))
+                            {
+                                case 0:
+                                    leyenda.text = leyendas[rando];
+                                    break;
+                                case 1:
+                                    leyenda.text = "Ya viene la linda luna rodeada de mil estrellas pa'lumbrar a mi morena cuando salga a su ventana";
+                                    break;
+                            }
                         }
-                    }
-                    else if (rando == 27)
-                    {
-                        switch (Random.Range(0, 2))
+                        else if (rando == 26)
                         {
-                            case 0:
-                                leyenda.text = leyendas[rando];
-                                break;
-                            case 1:
-                                leyenda.text = "La sandía y su rebanada";
-                                break;
+                            switch (Random.Range(0, 2))
+                            {
+                                case 0:
+                                    leyenda.text = leyendas[rando];
+                                    break;
+                                case 1:
+                                    leyenda.text = "El corazón de una ingrata";
+                                    break;
+                            }
                         }
-                    }
-                    else if (rando == 28)
-                    {
-                        switch (Random.Range(0, 2))
+                        else if (rando == 27)
                         {
-                            case 0:
-                                leyenda.text = leyendas[rando];
-                                break;
-                            case 1:
-                                leyenda.text = "Tambor o caja de guerra";
-                                break;
+                            switch (Random.Range(0, 2))
+                            {
+                                case 0:
+                                    leyenda.text = leyendas[rando];
+                                    break;
+                                case 1:
+                                    leyenda.text = "La sandía y su rebanada";
+                                    break;
+                            }
                         }
-                    }
-                    else if (rando == 34)
-                    {
-                        switch (Random.Range(0, 2))
+                        else if (rando == 28)
                         {
-                            case 0:
-                                leyenda.text = leyendas[rando];
-                                break;
-                            case 1:
-                                leyenda.text = "La estrella polar del norte";
-                                break;
+                            switch (Random.Range(0, 2))
+                            {
+                                case 0:
+                                    leyenda.text = leyendas[rando];
+                                    break;
+                                case 1:
+                                    leyenda.text = "Tambor o caja de guerra";
+                                    break;
+                            }
                         }
-                    }
-                    else if (rando == 36)
-                    {
-                        switch (Random.Range(0, 2))
+                        else if (rando == 34)
                         {
-                            case 0:
-                                leyenda.text = leyendas[rando];
-                                break;
-                            case 1:
-                                leyenda.text = "Cristóbal cargando el mundo";
-                                break;
+                            switch (Random.Range(0, 2))
+                            {
+                                case 0:
+                                    leyenda.text = leyendas[rando];
+                                    break;
+                                case 1:
+                                    leyenda.text = "La estrella polar del norte";
+                                    break;
+                            }
                         }
-                    }
-                    else if (rando == 40)
-                    {
-                        switch (Random.Range(0, 2))
+                        else if (rando == 36)
                         {
-                            case 0:
-                                leyenda.text = leyendas[rando];
-                                break;
-                            case 1:
-                                leyenda.text = "Rosa Rosita Rosaura tu palabra es más firme que la d'un notario";
-                                break;
+                            switch (Random.Range(0, 2))
+                            {
+                                case 0:
+                                    leyenda.text = leyendas[rando];
+                                    break;
+                                case 1:
+                                    leyenda.text = "Cristóbal cargando el mundo";
+                                    break;
+                            }
                         }
-                    }
-                    else if (rando == 43)
-                    {
-                        switch (Random.Range(0, 2))
+                        else if (rando == 40)
                         {
-                            case 0:
-                                leyenda.text = leyendas[rando];
-                                break;
-                            case 1:
-                                leyenda.text = "El cantarito del pulque no se te vaya a quebrar pos lo quiere la patrona pa poderme enamorar";
-                                break;
+                            switch (Random.Range(0, 2))
+                            {
+                                case 0:
+                                    leyenda.text = leyendas[rando];
+                                    break;
+                                case 1:
+                                    leyenda.text = "Rosa Rosita Rosaura tu palabra es más firme que la d'un notario";
+                                    break;
+                            }
                         }
-                    }
-                    else if (rando == 44)
-                    {
-                        switch (Random.Range(0, 2))
+                        else if (rando == 43)
                         {
-                            case 0:
-                                leyenda.text = leyendas[rando];
-                                break;
-                            case 1:
-                                leyenda.text = "El que brinca los peñascos";
-                                break;
+                            switch (Random.Range(0, 2))
+                            {
+                                case 0:
+                                    leyenda.text = leyendas[rando];
+                                    break;
+                                case 1:
+                                    leyenda.text = "El cantarito del pulque no se te vaya a quebrar pos lo quiere la patrona pa poderme enamorar";
+                                    break;
+                            }
                         }
-                    }
-                    else if (rando == 45)
-                    {
-                        switch (Random.Range(0, 2))
+                        else if (rando == 44)
                         {
-                            case 0:
-                                leyenda.text = leyendas[rando];
-                                break;
-                            case 1:
-                                leyenda.text = "La cobija de los pobres";
-                                break;
+                            switch (Random.Range(0, 2))
+                            {
+                                case 0:
+                                    leyenda.text = leyendas[rando];
+                                    break;
+                                case 1:
+                                    leyenda.text = "El que brinca los peñascos";
+                                    break;
+                            }
                         }
-                    }
-                    else if (rando == 46)
-                    {
-                        switch (Random.Range(0, 2))
+                        else if (rando == 45)
                         {
-                            case 0:
-                                leyenda.text = leyendas[rando];
-                                break;
-                            case 1:
-                                leyenda.text = "La corona del imperio";
-                                break;
+                            switch (Random.Range(0, 2))
+                            {
+                                case 0:
+                                    leyenda.text = leyendas[rando];
+                                    break;
+                                case 1:
+                                    leyenda.text = "La cobija de los pobres";
+                                    break;
+                            }
                         }
-                    }
-                    else if (rando == 47)
-                    {
-                        switch (Random.Range(0, 2))
+                        else if (rando == 46)
                         {
-                            case 0:
-                                leyenda.text = leyendas[rando];
-                                break;
-                            case 1:
-                                leyenda.text = "La chalupa rema y rema se va para Xochimilco";
-                                break;
+                            switch (Random.Range(0, 2))
+                            {
+                                case 0:
+                                    leyenda.text = leyendas[rando];
+                                    break;
+                                case 1:
+                                    leyenda.text = "La corona del imperio";
+                                    break;
+                            }
                         }
-                    }
-                    else if (rando == 48)
-                    {
-                        switch (Random.Range(0, 2))
+                        else if (rando == 47)
                         {
-                            case 0:
-                                leyenda.text = leyendas[rando];
-                                break;
-                            case 1:
-                                leyenda.text = "El pino de la Alameda siempre verde y siempre hermoso";
-                                break;
+                            switch (Random.Range(0, 2))
+                            {
+                                case 0:
+                                    leyenda.text = leyendas[rando];
+                                    break;
+                                case 1:
+                                    leyenda.text = "La chalupa rema y rema se va para Xochimilco";
+                                    break;
+                            }
                         }
-                    }
-                    else if (rando == 48)
-                    {
-                        switch (Random.Range(0, 2))
+                        else if (rando == 48)
                         {
-                            case 0:
-                                leyenda.text = leyendas[rando];
-                                break;
-                            case 1:
-                                leyenda.text = "El pez por su boca muere";
-                                break;
+                            switch (Random.Range(0, 2))
+                            {
+                                case 0:
+                                    leyenda.text = leyendas[rando];
+                                    break;
+                                case 1:
+                                    leyenda.text = "El pino de la Alameda siempre verde y siempre hermoso";
+                                    break;
+                            }
                         }
-                    }
-                    else if (rando == 50)
-                    {
-                        switch (Random.Range(0, 2))
+                        else if (rando == 48)
                         {
-                            case 0:
-                                leyenda.text = leyendas[rando];
-                                break;
-                            case 1:
-                                leyenda.text = "La palma real de Colima";
-                                break;
+                            switch (Random.Range(0, 2))
+                            {
+                                case 0:
+                                    leyenda.text = leyendas[rando];
+                                    break;
+                                case 1:
+                                    leyenda.text = "El pez por su boca muere";
+                                    break;
+                            }
                         }
-                    }
-                    else if (rando == 53)
-                    {
-                        switch (Random.Range(0, 2))
+                        else if (rando == 50)
                         {
-                            case 0:
-                                leyenda.text = leyendas[rando];
-                                break;
-                            case 1:
-                                leyenda.text = "La rana mujer del sapo";
-                                break;
+                            switch (Random.Range(0, 2))
+                            {
+                                case 0:
+                                    leyenda.text = leyendas[rando];
+                                    break;
+                                case 1:
+                                    leyenda.text = "La palma real de Colima";
+                                    break;
+                            }
                         }
+                        else if (rando == 53)
+                        {
+                            switch (Random.Range(0, 2))
+                            {
+                                case 0:
+                                    leyenda.text = leyendas[rando];
+                                    break;
+                                case 1:
+                                    leyenda.text = "La rana mujer del sapo";
+                                    break;
+                            }
+                        }
+                        else
+                            leyenda.text = leyendas[rando];
                     }
-                    else
-                        leyenda.text = leyendas[rando];
                 }
             }
             yasta = false;
@@ -420,7 +461,7 @@ public class GameScript : MonoBehaviour
 
     public void restart()
     {
-        Application.LoadLevel(Application.loadedLevel);
+		Application.LoadLevel(Application.loadedLevel);
         panelMenu.SetActive(false);
     }
 
@@ -428,6 +469,14 @@ public class GameScript : MonoBehaviour
     {
         Application.Quit();
     }
+
+	public void babyshowerPack(){
+        if (baraja == 0)
+            barajaPack.gameObject.GetComponent<DLCScript> ().packNum = 1;
+        else if (baraja == 1)
+            barajaPack.gameObject.GetComponent<DLCScript>().packNum = 0;
+		restart ();
+	}
 
     public void closeMenu()
     {
