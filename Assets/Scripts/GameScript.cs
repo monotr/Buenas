@@ -177,7 +177,8 @@ public class GameScript : MonoBehaviour
                     if (autoplay)
                     {
                         textTovoice.words = cartas[rando].name;
-                        StartCoroutine(textTovoice.PlayTexttoVoice());
+                        try { StartCoroutine(textTovoice.PlayTexttoVoice()); }
+                        catch { }
                     }
 
                     yasta = true;
@@ -523,7 +524,8 @@ public class GameScript : MonoBehaviour
             if (numerosSalidos.Count == 0)
             {
                 textTovoice.words = "corre y se va corriendo con";
-                StartCoroutine(textTovoice.PlayTexttoVoice());
+                try { StartCoroutine(textTovoice.PlayTexttoVoice()); }
+                catch { }
                 timerAux = 0;
             }
             else
@@ -533,7 +535,8 @@ public class GameScript : MonoBehaviour
         {
             playBut.GetComponent<Image>().sprite = autoplayBut[0];
             textTovoice.words = "partida pausada";
-            StartCoroutine(textTovoice.PlayTexttoVoice());
+            try { StartCoroutine(textTovoice.PlayTexttoVoice()); }
+            catch { }
             timerAux = 0;
         }
     }
