@@ -103,7 +103,7 @@ PlayerSettings:
   iPadHighResLandscapeSplashScreen: {fileID: 0}
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
-  AndroidKeystoreName: C:/Users/Monotr_/Documents/MEGAsync/My Games/keystones/buenas.keystore
+  AndroidKeystoreName: C:/Users/Alberto/Google Drive/Cerdito Studios/androidKeys/buenas.keystore
   AndroidKeyaliasName: monotr
   resolutionDialogBanner: {fileID: 0}
   m_BuildTargetIcons:
