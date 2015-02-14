@@ -174,10 +174,11 @@ public class GameScript : MonoBehaviour
                     numerosSalidos.Add(rando);
                     numeros.Remove(rando);
 
-					if(autoplay){
-						textTovoice.words = cartas[rando].name;
-						StartCoroutine (textTovoice.PlayTexttoVoice ());
-					}
+                    if (autoplay)
+                    {
+                        textTovoice.words = cartas[rando].name;
+                        StartCoroutine(textTovoice.PlayTexttoVoice());
+                    }
 
                     yasta = true;
                     if (baraja == 0)
@@ -481,7 +482,11 @@ public class GameScript : MonoBehaviour
             yasta = false;
         }
         else
+        {
+            leyenda.GetComponentInChildren<Text>().font = arial;
+            leyenda.GetComponentInChildren<Text>().resizeTextMaxSize = 50;
             leyenda.text = "No hay más cartas";
+        }
     }
 
     public void menu()
