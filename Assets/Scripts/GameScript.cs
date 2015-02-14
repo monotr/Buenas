@@ -7,7 +7,6 @@ public class GameScript : MonoBehaviour
 {
     public GameObject panelMenu;
     public Sprite[] cartasOriginales;
-	public Sprite[] cartasBabyShower;
 	public Sprite[] cartas;
 	public GameObject carta;
     private Image cambioCarta;
@@ -16,7 +15,6 @@ public class GameScript : MonoBehaviour
     private bool yasta = false;
     public GameObject panelSalidos;
     public RectTransform cartaSalida;
-    public Text buscadorCarta;
     public Text leyenda;
     public GameObject scroller;
     bool colocar;
@@ -62,24 +60,7 @@ public class GameScript : MonoBehaviour
         speedTXT.text = timerSlider.value.ToString();
 		textTovoice = GameObject.Find ("Main Camera").GetComponent<GoogleTextToSpeech> ();
 
-		if(GameObject.Find("Store_Settings(Clone)") == null){
-			GameObject indes = Instantiate(indestructible) as GameObject;
-			barajaPack = indes;
-		}
-		else{
-			barajaPack = GameObject.Find("Store_Settings(Clone)");
-		}
-
-		int baraja = barajaPack.gameObject.GetComponent<DLCScript> ().packNum;
-
-		switch (baraja) {
-		case 0:
-			cartas = cartasOriginales;
-			break;
-		case 1:
-			cartas = cartasBabyShower;
-			break;
-		}
+        cartas = cartasOriginales;
 
         numeros = new List<int>();
         numerosSalidos = new List<int>();
@@ -110,17 +91,14 @@ public class GameScript : MonoBehaviour
             numerosSalidos.Reverse();
             foreach (int item in numerosSalidos)
             {
-                if (cartas[item].name.Contains(buscadorCarta.text.ToLower()) || buscadorCarta.text == "Buscar carta...")
-                {
-                    GameObject salio = Instantiate(cartaSalida, Vector3.zero, Quaternion.identity) as GameObject;
-                    salio.GetComponent<Image>().sprite = cartas[item];
-                    salio.transform.SetParent(panelSalidos.transform);
-                    salio.transform.localScale = new Vector3(2, 2, 1);
-                    salio.GetComponent<Image>().transform.localPosition = new Vector3(0, panelSalidos.GetComponent<RectTransform>().sizeDelta.y / 2 - 161.2f * iterator - 80.6f, 0);
-                    salio.name = item.ToString();
-                    salio.GetComponent<Button>().onClick.AddListener(() => { selection(int.Parse(salio.name)); });
-                    iterator++;
-                }
+                GameObject salio = Instantiate(cartaSalida, Vector3.zero, Quaternion.identity) as GameObject;
+                salio.GetComponent<Image>().sprite = cartas[item];
+                salio.transform.SetParent(panelSalidos.transform);
+                salio.transform.localScale = new Vector3(2, 2, 1);
+                salio.GetComponent<Image>().transform.localPosition = new Vector3(0, panelSalidos.GetComponent<RectTransform>().sizeDelta.y / 2 - 161.2f * iterator - 80.6f, 0);
+                salio.name = item.ToString();
+                salio.GetComponent<Button>().onClick.AddListener(() => { selection(int.Parse(salio.name)); });
+                iterator++;
             }
             numerosSalidos.Reverse();
             colocar = true;
@@ -151,7 +129,6 @@ public class GameScript : MonoBehaviour
     public void shuffle()
     {
         colocar = false;
-        buscadorCarta.GetComponent<InputField>().text = "Buscar carta...";
         carta.GetComponentInChildren<Text>().enabled = false;
         if (numeros.Count > 0)
         {
@@ -496,19 +473,19 @@ public class GameScript : MonoBehaviour
         Application.Quit();
     }
 
-	public void babyshowerPack(){
-		barajaPack.gameObject.GetComponent<DLCScript> ().packNum = 1;
-		restart ();
-	}
-
 	public void autoPlay(){
 		autoplay = !autoplay;
 
 		if(autoplay){
 			playBut.GetComponent<Image>().sprite = autoplayBut[1];
-			textTovoice.words = "corre y se va corriendo con";
-			StartCoroutine (textTovoice.PlayTexttoVoice ());
-			timerAux = 0;
+            if (numerosSalidos.Count == 0)
+            {
+                textTovoice.words = "corre y se va corriendo con";
+                StartCoroutine(textTovoice.PlayTexttoVoice());
+                timerAux = 0;
+            }
+            else
+                timerAux = timerSlider.value;
 		}
 		else{
 			playBut.GetComponent<Image>().sprite = autoplayBut[0];
