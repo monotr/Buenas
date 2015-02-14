@@ -513,22 +513,30 @@ public class GameScript : MonoBehaviour
 		restart ();
 	}
 
-	public void autoPlay(){
-		autoplay = !autoplay;
+    public void autoPlay()
+    {
+        autoplay = !autoplay;
 
-		if(autoplay){
-			playBut.GetComponent<Image>().sprite = autoplayBut[1];
-			textTovoice.words = "corre y se va corriendo con";
-			StartCoroutine (textTovoice.PlayTexttoVoice ());
-			timerAux = 0;
-		}
-		else{
-			playBut.GetComponent<Image>().sprite = autoplayBut[0];
-			textTovoice.words = "partida pausada";
-			StartCoroutine (textTovoice.PlayTexttoVoice ());
-			timerAux = 0;
-		}
-	}
+        if (autoplay)
+        {
+            playBut.GetComponent<Image>().sprite = autoplayBut[1];
+            if (numerosSalidos.Count == 0)
+            {
+                textTovoice.words = "corre y se va corriendo con";
+                StartCoroutine(textTovoice.PlayTexttoVoice());
+                timerAux = 0;
+            }
+            else
+                timerAux = timerSlider.value;
+        }
+        else
+        {
+            playBut.GetComponent<Image>().sprite = autoplayBut[0];
+            textTovoice.words = "partida pausada";
+            StartCoroutine(textTovoice.PlayTexttoVoice());
+            timerAux = 0;
+        }
+    }
 
 	public void changeAutoplayTime(){
 		timeAutoplay = timerSlider.value;
