@@ -25,6 +25,15 @@ public class GameScript : MonoBehaviour
 	public GameObject indestructible;
     private int baraja;
     public GameObject cambiarBaraja;
+	public GoogleTextToSpeech textTovoice;
+	public bool autoplay = false;
+	public float timeAutoplay;
+	private float timerAux;
+	public Sprite[] autoplayBut;
+	public GameObject playBut;
+	public GameObject sliderTime;
+	private Slider timerSlider;
+	public Text speedTXT;
 
     string[] leyendas = { "El que la cantó a San Pedro", "Pórtate bien cuatito, si no te lleva el coloradito", "Puliendo el paso, por toda la calle real",
                         "Don Ferruco en la alameda, su bastón quería tirar", "Para el sol y para el agua", "Medio cuerpo de señora se divisa en altamar",
@@ -47,6 +56,11 @@ public class GameScript : MonoBehaviour
 
     void Start()
     {
+		timerSlider = sliderTime.GetComponent<Slider> ();
+		timeAutoplay = timerSlider.value;
+        speedTXT.text = timerSlider.value.ToString();
+		textTovoice = GameObject.Find ("Main Camera").GetComponent<GoogleTextToSpeech> ();
+		
 		if(GameObject.Find("Store_Settings(Clone)") == null){
 			GameObject indes = Instantiate(indestructible) as GameObject;
 			barajaPack = indes;
@@ -115,6 +129,16 @@ public class GameScript : MonoBehaviour
             numerosSalidos.Reverse();
             colocar = true;
         }
+
+		if(autoplay){
+			if(timerAux > timeAutoplay){
+				timerAux = 0;
+				shuffle();
+			}
+			else{
+				timerAux += Time.deltaTime;
+			}
+		}
     }
 
     public void selection(int change)
@@ -149,6 +173,13 @@ public class GameScript : MonoBehaviour
                     cambioCarta.sprite = cartas[rando];
                     numerosSalidos.Add(rando);
                     numeros.Remove(rando);
+
+                    if (autoplay)
+                    {
+                        textTovoice.words = cartas[rando].name;
+                        StartCoroutine(textTovoice.PlayTexttoVoice());
+                    }
+
                     yasta = true;
                     if (baraja == 0)
                     {
@@ -451,7 +482,11 @@ public class GameScript : MonoBehaviour
             yasta = false;
         }
         else
+        {
+            leyenda.GetComponentInChildren<Text>().font = arial;
+            leyenda.GetComponentInChildren<Text>().resizeTextMaxSize = 50;
             leyenda.text = "No hay más cartas";
+        }
     }
 
     public void menu()
@@ -478,8 +513,37 @@ public class GameScript : MonoBehaviour
 		restart ();
 	}
 
+	public void autoPlay(){
+		autoplay = !autoplay;
+
+		if(autoplay){
+			playBut.GetComponent<Image>().sprite = autoplayBut[1];
+			textTovoice.words = "corre y se va corriendo con";
+			StartCoroutine (textTovoice.PlayTexttoVoice ());
+			timerAux = 0;
+		}
+		else{
+			playBut.GetComponent<Image>().sprite = autoplayBut[0];
+			textTovoice.words = "partida pausada";
+			StartCoroutine (textTovoice.PlayTexttoVoice ());
+			timerAux = 0;
+		}
+	}
+
+	public void changeAutoplayTime(){
+		timeAutoplay = timerSlider.value;
+		speedTXT.text = timerSlider.value.ToString();
+	}
+
     public void closeMenu()
     {
         panelMenu.SetActive(false);
+    }
+
+    public void shufflePause()
+    {
+        autoplay = false;
+        playBut.GetComponent<Image>().sprite = autoplayBut[0];
+        timerAux = 0;
     }
 }
