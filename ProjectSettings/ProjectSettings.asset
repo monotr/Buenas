@@ -10,7 +10,7 @@ PlayerSettings:
   targetGlesGraphics: 1
   targetResolution: 0
   accelerometerFrequency: 60
-  companyName: CerditoStudios
+  companyName: Cerdito Studios
   productName: Buenas!
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -67,7 +67,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  iPhoneBundleIdentifier: com.CerditoStudio.Buenas
+  iPhoneBundleIdentifier: com.CerditoStudios.Buenas
   metroEnableIndependentInputSource: 0
   metroEnableLowLatencyPresentationAPI: 0
   productGUID: 6de8ab5d7b7c6eb4ab6ae53902f6eadb

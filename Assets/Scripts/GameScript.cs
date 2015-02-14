@@ -24,6 +24,15 @@ public class GameScript : MonoBehaviour
 	public AdmobVNTIS AdmobVNTIS;
 	public GameObject barajaPack;
 	public GameObject indestructible;
+	public GoogleTextToSpeech textTovoice;
+	public bool autoplay = false;
+	public float timeAutoplay;
+	private float timerAux;
+	public Sprite[] autoplayBut;
+	public GameObject playBut;
+	public GameObject sliderTime;
+	private Slider timerSlider;
+	public Text speedTXT;
 
     string[] leyendas = { "El que la cantó a San Pedro", "Pórtate bien cuatito, si no te lleva el coloradito", "Puliendo el paso, por toda la calle real",
                         "Don Ferruco en la alameda, su bastón quería tirar", "Para el sol y para el agua", "Medio cuerpo de señora se divisa en altamar",
@@ -47,6 +56,12 @@ public class GameScript : MonoBehaviour
     void Start()
     {
 		AdmobVNTIS.showBanner ();
+
+		timerSlider = sliderTime.GetComponent<Slider> ();
+		timeAutoplay = timerSlider.value;
+
+		textTovoice = GameObject.Find ("Main Camera").GetComponent<GoogleTextToSpeech> ();
+
 		if(GameObject.Find("Store_Settings(Clone)") == null){
 			GameObject indes = Instantiate(indestructible) as GameObject;
 			barajaPack = indes;
@@ -110,6 +125,16 @@ public class GameScript : MonoBehaviour
             numerosSalidos.Reverse();
             colocar = true;
         }
+
+		if(autoplay){
+			if(timerAux > timeAutoplay){
+				timerAux = 0;
+				shuffle();
+			}
+			else{
+				timerAux += Time.deltaTime;
+			}
+		}
     }
 
     public void selection(int change)
@@ -143,6 +168,12 @@ public class GameScript : MonoBehaviour
 					}
 					catch{}
                     numeros.Remove(rando);
+
+					if(autoplay){
+						textTovoice.words = cartas[rando].name;
+						StartCoroutine (textTovoice.PlayTexttoVoice ());
+					}
+
                     yasta = true;
                     if (rando == 9)
                     {
@@ -468,6 +499,28 @@ public class GameScript : MonoBehaviour
 	public void babyshowerPack(){
 		barajaPack.gameObject.GetComponent<DLCScript> ().packNum = 1;
 		restart ();
+	}
+
+	public void autoPlay(){
+		autoplay = !autoplay;
+
+		if(autoplay){
+			playBut.GetComponent<Image>().sprite = autoplayBut[1];
+			textTovoice.words = "corre y se va corriendo con";
+			StartCoroutine (textTovoice.PlayTexttoVoice ());
+			timerAux = 0;
+		}
+		else{
+			playBut.GetComponent<Image>().sprite = autoplayBut[0];
+			textTovoice.words = "partida pausada";
+			StartCoroutine (textTovoice.PlayTexttoVoice ());
+			timerAux = 0;
+		}
+	}
+
+	public void changeAutoplayTime(){
+		timeAutoplay = timerSlider.value;
+		speedTXT.text = timerSlider.value.ToString();
 	}
 
     public void closeMenu()
