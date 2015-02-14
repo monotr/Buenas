@@ -59,7 +59,7 @@ public class GameScript : MonoBehaviour
 
 		timerSlider = sliderTime.GetComponent<Slider> ();
 		timeAutoplay = timerSlider.value;
-
+        speedTXT.text = timerSlider.value.ToString();
 		textTovoice = GameObject.Find ("Main Camera").GetComponent<GoogleTextToSpeech> ();
 
 		if(GameObject.Find("Store_Settings(Clone)") == null){
@@ -526,5 +526,12 @@ public class GameScript : MonoBehaviour
     public void closeMenu()
     {
         panelMenu.SetActive(false);
+    }
+
+    public void shufflePause()
+    {
+        autoplay = false;
+        playBut.GetComponent<Image>().sprite = autoplayBut[0];
+        timerAux = 0;
     }
 }
