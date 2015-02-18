@@ -34,6 +34,8 @@ public class GameScript : MonoBehaviour
 	public GameObject sliderTime;
 	private Slider timerSlider;
 	public Text speedTXT;
+    float touchBegan = 0;
+    float touchEnd = 0;
 
     string[] leyendas = { "El que la cantó a San Pedro", "Pórtate bien cuatito, si no te lleva el coloradito", "Puliendo el paso, por toda la calle real",
                         "Don Ferruco en la alameda, su bastón quería tirar", "Para el sol y para el agua", "Medio cuerpo de señora se divisa en altamar",
@@ -100,6 +102,20 @@ public class GameScript : MonoBehaviour
 
     void Update()
     {
+        if (Input.touchCount > 0)
+        {
+            if (Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                touchBegan = Input.GetTouch(0).position.x;
+            }
+        }
+        if (Input.GetTouch(0).phase == TouchPhase.Ended)
+        {
+            touchEnd = Input.GetTouch(0).position.x;
+            if (touchBegan - touchEnd > 150)
+                panelMenu.SetActive(true);
+        }
+
         if (!colocar)
         {
             try
