@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class GameScript : MonoBehaviour
 {
+    public Font fuente;
     public GameObject panelMenu;
     public Sprite[] cartasOriginales;
 	public Sprite[] cartas;
@@ -57,7 +58,7 @@ public class GameScript : MonoBehaviour
 
 		timerSlider = sliderTime.GetComponent<Slider> ();
 		timeAutoplay = timerSlider.value;
-        speedTXT.text = timerSlider.value.ToString();
+        speedTXT.text = timerSlider.value.ToString() + " segundos";
 		textTovoice = GameObject.Find ("Main Camera").GetComponent<GoogleTextToSpeech> ();
 
         cartas = cartasOriginales;
@@ -134,6 +135,7 @@ public class GameScript : MonoBehaviour
 
     public void shuffle()
     {
+        leyenda.font = fuente;
         colocar = false;
         carta.GetComponentInChildren<Text>().enabled = false;
         if (numeros.Count > 0)
@@ -509,7 +511,7 @@ public class GameScript : MonoBehaviour
 
 	public void changeAutoplayTime(){
 		timeAutoplay = timerSlider.value;
-		speedTXT.text = timerSlider.value.ToString();
+		speedTXT.text = timerSlider.value.ToString() + " segundos";
 	}
 
     public void closeMenu()
