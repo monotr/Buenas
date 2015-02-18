@@ -58,6 +58,7 @@ public class GameScript : MonoBehaviour
     {
 		AdmobVNTIS.showBanner ();
 
+        timerAux = 0;
 		timerSlider = sliderTime.GetComponent<Slider> ();
 		timeAutoplay = timerSlider.value;
         speedTXT.text = timerSlider.value.ToString() + " segundos";
@@ -80,15 +81,18 @@ public class GameScript : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetTouch(0).phase == TouchPhase.Began && Input.GetTouch(0).tapCount == 1)
+        if (Input.touchCount == 1)
         {
-            touchBegan = Input.GetTouch(0).position.x;
-        }
-        if (Input.GetTouch(0).phase == TouchPhase.Moved && Input.GetTouch(0).tapCount == 1)
-        {
-            touchEnd = Input.GetTouch(0).position.x;
-            if (touchBegan - touchEnd > 150)
-                panelMenu.SetActive(true);
+            if (Input.GetTouch(0).phase == TouchPhase.Began && Input.GetTouch(0).tapCount == 1)
+            {
+                touchBegan = Input.GetTouch(0).position.x;
+            }
+            if (Input.GetTouch(0).phase == TouchPhase.Moved && Input.GetTouch(0).tapCount == 1)
+            {
+                touchEnd = Input.GetTouch(0).position.x;
+                if (touchBegan - touchEnd > 150)
+                    panelMenu.SetActive(true);
+            }
         }
 
         if (!colocar)
@@ -118,14 +122,15 @@ public class GameScript : MonoBehaviour
             colocar = true;
         }
 
-		if(autoplay){
-			if(timerAux > timeAutoplay){
+		if(autoplay)
+        {
+			if(timerAux > timeAutoplay)
+            {
 				timerAux = 0;
 				shuffle();
 			}
-			else{
+			else
 				timerAux += Time.deltaTime;
-			}
 		}
     }
 
@@ -156,7 +161,8 @@ public class GameScript : MonoBehaviour
                     numerosSalidos.Add(rando);
                     numeros.Remove(rando);
 
-					if(autoplay){
+					if(autoplay)
+                    {
 						textTovoice.words = cartas[rando].name;
                         try { StartCoroutine(textTovoice.PlayTexttoVoice()); }
                         catch { }
@@ -484,10 +490,12 @@ public class GameScript : MonoBehaviour
         Application.Quit();
     }
 
-	public void autoPlay(){
+	public void autoPlay()
+    {
 		autoplay = !autoplay;
 
-		if(autoplay){
+		if(autoplay)
+        {
 			playBut.GetComponent<Image>().sprite = autoplayBut[1];
             if (numerosSalidos.Count == 0)
             {
@@ -499,7 +507,7 @@ public class GameScript : MonoBehaviour
             else if (numerosSalidos.Count == 54)
             {
                 playBut.GetComponent<Image>().sprite = autoplayBut[0];
-                textTovoice.words = "no hay maas cartas";
+                textTovoice.words = "no hay más cartas";
                 try { StartCoroutine(textTovoice.PlayTexttoVoice()); }
                 catch { }
                 autoplay = false;
