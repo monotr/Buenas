@@ -487,6 +487,14 @@ public class GameScript : MonoBehaviour
                 catch { }
                 timerAux = 0;
             }
+            else if (numerosSalidos.Count == 54)
+            {
+                playBut.GetComponent<Image>().sprite = autoplayBut[0];
+                textTovoice.words = "no hay maas cartas";
+                try { StartCoroutine(textTovoice.PlayTexttoVoice()); }
+                catch { }
+                autoplay = false;
+            }
             else
                 timerAux = timerSlider.value;
 		}
