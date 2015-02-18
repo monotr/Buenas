@@ -77,6 +77,23 @@ public class GameScript : MonoBehaviour
 
     void Update()
     {
+        float touchOne;
+        float touchRelease;
+        if (Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            touchOne = Input.GetTouch(0).position.magnitude;
+        }
+        else if (Input.GetTouch(0).phase == TouchPhase.Ended)
+        {
+            touchRelease = Input.GetTouch(0).position.magnitude;
+
+            float deltaDifMag = touchOne - touchRelease;
+
+            if (deltaDifMag > 20)
+            {
+                panelMenu.SetActive(true);
+            }
+        }
         if (!colocar)
         {
             try
@@ -139,11 +156,6 @@ public class GameScript : MonoBehaviour
                 {
                     cambioCarta.sprite = cartas[rando];
                     numerosSalidos.Add(rando);
-					try{
-					if(numerosSalidos.Count == 1)
-						AdmobVNTIS.hideBanner ();
-					}
-					catch{}
                     numeros.Remove(rando);
 
 					if(autoplay){
