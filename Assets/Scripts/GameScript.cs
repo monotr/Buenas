@@ -102,14 +102,11 @@ public class GameScript : MonoBehaviour
 
     void Update()
     {
-        if (Input.touchCount > 0)
+        if (Input.GetTouch(0).phase == TouchPhase.Began && Input.GetTouch(0).tapCount == 1)
         {
-            if (Input.GetTouch(0).phase == TouchPhase.Began)
-            {
-                touchBegan = Input.GetTouch(0).position.x;
-            }
+            touchBegan = Input.GetTouch(0).position.x;
         }
-        if (Input.GetTouch(0).phase == TouchPhase.Ended)
+        if (Input.GetTouch(0).phase == TouchPhase.Moved && Input.GetTouch(0).tapCount == 1)
         {
             touchEnd = Input.GetTouch(0).position.x;
             if (touchBegan - touchEnd > 150)
