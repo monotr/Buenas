@@ -161,7 +161,6 @@ public class GameScript : MonoBehaviour
         if (baraja == 0)
         {
             leyenda.GetComponentInChildren<Text>().font = arial;
-            leyenda.GetComponentInChildren<Text>().resizeTextMaxSize = 50;
         }
         if (numeros.Count > 0)
         {
