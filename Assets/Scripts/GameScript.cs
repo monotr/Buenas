@@ -161,18 +161,18 @@ public class GameScript : MonoBehaviour
                     numerosSalidos.Add(rando);
                     numeros.Remove(rando);
 
-					if(autoplay)
+                    if (autoplay)
                     {
-						textTovoice.words = cartas[rando].name;
+                        textTovoice.words = cartas[rando].name;
                         try { StartCoroutine(textTovoice.PlayTexttoVoice()); }
                         catch { }
-					}
+                    }
 
                     yasta = true;
                     if (rando == 9)
                     {
                         switch (Random.Range(0, 2))
-                        { 
+                        {
                             case 0:
                                 leyenda.text = leyendas[rando];
                                 break;
@@ -467,7 +467,17 @@ public class GameScript : MonoBehaviour
             yasta = false;
         }
         else
+        {
             leyenda.text = "No hay más cartas";
+            if (autoplay)
+                {
+                    playBut.GetComponent<Image>().sprite = autoplayBut[0];
+                    textTovoice.words = "no hay más cartas";
+                    try { StartCoroutine(textTovoice.PlayTexttoVoice()); }
+                    catch { }
+                    autoplay = false;
+                }
+        }
     }
 
     public void menu()
