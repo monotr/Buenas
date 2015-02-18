@@ -77,23 +77,12 @@ public class GameScript : MonoBehaviour
 
     void Update()
     {
-        float touchOne;
-        float touchRelease;
-        if (Input.GetTouch(0).phase == TouchPhase.Began)
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
         {
-            touchOne = Input.GetTouch(0).position.magnitude;
-        }
-        else if (Input.GetTouch(0).phase == TouchPhase.Ended)
-        {
-            touchRelease = Input.GetTouch(0).position.magnitude;
-
-            float deltaDifMag = touchOne - touchRelease;
-
-            if (deltaDifMag > 20)
-            {
+            if (Input.GetTouch(0).deltaPosition.x > 20)
                 panelMenu.SetActive(true);
-            }
         }
+
         if (!colocar)
         {
             try
