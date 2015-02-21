@@ -56,8 +56,6 @@ public class GameScript : MonoBehaviour
 
     void Start()
     {
-		AdmobVNTIS.showBanner ();
-
         timerAux = 0;
 		timerSlider = sliderTime.GetComponent<Slider> ();
 		timeAutoplay = timerSlider.value;
