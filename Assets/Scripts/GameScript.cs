@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UI;
+using StartApp;
 
 public class GameScript : MonoBehaviour
 {
@@ -19,8 +20,6 @@ public class GameScript : MonoBehaviour
     public Text leyenda;
     public GameObject scroller;
     bool colocar;
-	public AdmobVNTIS_Interstitial AdmobVNTIS_Interstitial;
-	public AdmobVNTIS AdmobVNTIS;
 	public GameObject barajaPack;
 	public GameObject indestructible;
 	public GoogleTextToSpeech textTovoice;
@@ -75,6 +74,13 @@ public class GameScript : MonoBehaviour
         panelSalidos.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
         panelSalidos.GetComponent<RectTransform>().sizeDelta = new Vector3(0, 0, 0);
         colocar = false;
+
+#if UNITY_ANDROID
+        StartAppWrapper.addBanner(
+              StartAppWrapper.BannerType.AUTOMATIC,
+              StartAppWrapper.BannerPosition.BOTTOM);
+        StartAppWrapper.loadAd();
+#endif
     }
 
     void Update()
@@ -130,6 +136,9 @@ public class GameScript : MonoBehaviour
 			else
 				timerAux += Time.deltaTime;
 		}
+
+        if (Input.GetKeyUp (KeyCode.Escape))
+            quit();
     }
 
     public void selection(int change)
@@ -485,17 +494,19 @@ public class GameScript : MonoBehaviour
 
     public void restart()
     {
-		try{
-		AdmobVNTIS_Interstitial.showInterstitial ();
-		}
-		catch{}
-		Application.LoadLevel(Application.loadedLevel);
+        Application.LoadLevel(Application.loadedLevel);
         panelMenu.SetActive(false);
+    }
+
+    public void proLink()
+    {
+        Application.OpenURL("https://play.google.com/store/apps/details?id=com.CerditoStudios.BuenasPRO");
     }
 
     public void quit()
     {
-        Application.Quit();
+        if (StartAppWrapper.onBackPressed(gameObject.name) == false)
+            Application.Quit();
     }
 
 	public void autoPlay()
