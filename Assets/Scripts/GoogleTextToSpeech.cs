@@ -33,8 +33,8 @@ public class GoogleTextToSpeech : MonoBehaviour
 		string url = "http://translate.google.com/translate_tts?tl=es&q=" + result;
 		WWW www = new WWW (url);
 		yield return www;
-		audio.clip = www.GetAudioClip (false, false, AudioType.MPEG);
-		audio.Play ();
+		GetComponent<AudioSource>().clip = www.GetAudioClip (false, false, AudioType.MPEG);
+		GetComponent<AudioSource>().Play ();
 	}
 	
 }
