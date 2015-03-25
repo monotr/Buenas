@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UI;
-using StartApp;
 
 public class GameScript : MonoBehaviour
 {
@@ -74,13 +73,6 @@ public class GameScript : MonoBehaviour
         panelSalidos.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
         panelSalidos.GetComponent<RectTransform>().sizeDelta = new Vector3(0, 0, 0);
         colocar = false;
-
-#if UNITY_ANDROID
-        StartAppWrapper.addBanner(
-              StartAppWrapper.BannerType.AUTOMATIC,
-              StartAppWrapper.BannerPosition.BOTTOM);
-        StartAppWrapper.loadAd();
-#endif
     }
 
     void Update()
@@ -505,7 +497,6 @@ public class GameScript : MonoBehaviour
 
     public void quit()
     {
-        if (StartAppWrapper.onBackPressed(gameObject.name) == false)
             Application.Quit();
     }
 
