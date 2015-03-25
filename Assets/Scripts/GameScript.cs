@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UI;
+using GoogleMobileAds.Api;
 
 public class GameScript : MonoBehaviour
 {
@@ -19,8 +20,6 @@ public class GameScript : MonoBehaviour
     public Text leyenda;
     public GameObject scroller;
     bool colocar;
-	public AdmobVNTIS_Interstitial AdmobVNTIS_Interstitial;
-	public AdmobVNTIS AdmobVNTIS;
 	public GameObject barajaPack;
 	public GameObject indestructible;
 	public GoogleTextToSpeech textTovoice;
@@ -34,6 +33,8 @@ public class GameScript : MonoBehaviour
 	public Text speedTXT;
     float touchBegan = 0;
     float touchEnd = 0;
+    BannerView bannerView;
+    InterstitialAd interstitial;
 
     string[] leyendas = { "El que la cantó a San Pedro", "Pórtate bien cuatito, si no te lleva el coloradito", "Puliendo el paso, por toda la calle real",
                         "Don Ferruco en la alameda, su bastón quería tirar", "Para el sol y para el agua", "Medio cuerpo de señora se divisa en altamar",
@@ -56,6 +57,9 @@ public class GameScript : MonoBehaviour
 
     void Start()
     {
+        RequestBanner();
+        RequestInterstitial();
+
         timerAux = 0;
 		timerSlider = sliderTime.GetComponent<Slider> ();
 		timeAutoplay = timerSlider.value;
@@ -130,6 +134,9 @@ public class GameScript : MonoBehaviour
 			else
 				timerAux += Time.deltaTime;
 		}
+
+        if (Input.GetKeyUp (KeyCode.Escape))
+            quit();
     }
 
     public void selection(int change)
@@ -485,17 +492,25 @@ public class GameScript : MonoBehaviour
 
     public void restart()
     {
-		try{
-		AdmobVNTIS_Interstitial.showInterstitial ();
-		}
-		catch{}
-		Application.LoadLevel(Application.loadedLevel);
+        if (interstitial.IsLoaded())
+        {
+            interstitial.Show();
+        }
+
+        bannerView.Destroy();
+
+        Application.LoadLevel(Application.loadedLevel);
         panelMenu.SetActive(false);
+    }
+
+    public void proLink()
+    {
+        Application.OpenURL("https://play.google.com/store/apps/details?id=com.CerditoStudios.BuenasPRO");
     }
 
     public void quit()
     {
-        Application.Quit();
+            Application.Quit();
     }
 
 	public void autoPlay()
@@ -547,5 +562,37 @@ public class GameScript : MonoBehaviour
         autoplay = false;
         playBut.GetComponent<Image>().sprite = autoplayBut[0];
         timerAux = 0;
+    }
+
+    private void RequestBanner()
+    {
+#if UNITY_ANDROID
+        string adUnitId = "ca-app-pub-7147341142198078/4538878349";
+#else
+        string adUnitId = "unexpected_platform";
+#endif
+
+        // Create a 320x50 banner at the bottom of the screen.
+        bannerView = new BannerView(adUnitId, AdSize.Banner, AdPosition.Bottom);
+        // Create an empty ad request.
+        AdRequest request = new AdRequest.Builder().Build();
+        // Load the banner with the request.
+        bannerView.LoadAd(request);
+    }
+
+    private void RequestInterstitial()
+    {
+#if UNITY_ANDROID
+        string adUnitId = "ca-app-pub-7147341142198078/7492344745";
+#else
+        string adUnitId = "unexpected_platform";
+#endif
+
+        // Initialize an InterstitialAd.
+        interstitial = new InterstitialAd(adUnitId);
+        // Create an empty ad request.
+        AdRequest request = new AdRequest.Builder().Build();
+        // Load the interstitial with the request.
+        interstitial.LoadAd(request);
     }
 }
