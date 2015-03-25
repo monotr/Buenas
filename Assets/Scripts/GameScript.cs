@@ -23,7 +23,7 @@ public class GameScript : MonoBehaviour
     bool colocar;
 	public GameObject barajaPack;
 	public GameObject indestructible;
-    private int baraja;
+    private static int baraja;
     public GameObject cambiarBaraja;
 	public GoogleTextToSpeech textTovoice;
 	public bool autoplay = false;
@@ -63,16 +63,6 @@ public class GameScript : MonoBehaviour
 		timeAutoplay = timerSlider.value;
         speedTXT.text = timerSlider.value.ToString() + " segundos";
 		textTovoice = GameObject.Find ("Main Camera").GetComponent<GoogleTextToSpeech> ();
-		
-		if(GameObject.Find("Store_Settings(Clone)") == null){
-			GameObject indes = Instantiate(indestructible) as GameObject;
-			barajaPack = indes;
-		}
-		else{
-			barajaPack = GameObject.Find("Store_Settings(Clone)");
-		}
-
-		baraja = barajaPack.gameObject.GetComponent<DLCScript> ().packNum;
         
         panelMenu.SetActive(true);
 		
@@ -531,9 +521,9 @@ public class GameScript : MonoBehaviour
 
 	public void babyshowerPack(){
         if (baraja == 0)
-            barajaPack.gameObject.GetComponent<DLCScript> ().packNum = 1;
-        else if (baraja == 1)
-            barajaPack.gameObject.GetComponent<DLCScript>().packNum = 0;
+            baraja = 1;
+        else
+            baraja = 0;
 		restart ();
 	}
 
